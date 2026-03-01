@@ -1,0 +1,64 @@
+# OpenRouter Provider Configuration
+# Multi-model provider with access to many LLMs
+
+provider: "openrouter"
+display_name: "OpenRouter"
+description: "Multi-model provider - access Claude, GPT, Llama, and more"
+
+# Configuration template for nanobot
+config_template:
+  providers:
+    openrouter:
+      apiKey: "${CHILD_NAME}_API_KEY"
+      baseUrl: "https://openrouter.ai/api/v1"
+  
+  agents:
+    defaults:
+      model: "anthropic/claude-3.5-sonnet"
+      provider: "openrouter"
+
+# Environment variable setup
+env_vars:
+  primary:
+    name: "${CHILD_NAME}_API_KEY"
+    description: "OpenRouter API key"
+    required: true
+    how_to_get: |
+      1. Visit https://openrouter.ai/keys
+      2. Create an account
+      3. Generate an API key
+
+# Popular models
+models:
+  claude-3.5-sonnet:
+    id: "anthropic/claude-3.5-sonnet"
+    description: "Claude 3.5 Sonnet - Best balance"
+    recommended: true
+    
+  claude-3-opus:
+    id: "anthropic/claude-3-opus"
+    description: "Claude 3 Opus - Most capable"
+    
+  gpt-4-turbo:
+    id: "openai/gpt-4-turbo"
+    description: "GPT-4 Turbo - Fast and smart"
+    
+  llama-3-70b:
+    id: "meta-llama/llama-3-70b-instruct"
+    description: "Llama 3 70B - Open source"
+
+default_model: "anthropic/claude-3.5-sonnet"
+
+# OAuth support
+oauth:
+  supported: false
+
+# Pricing (varies by model, check console)
+pricing:
+  note: "Varies by model, see openrouter.ai for current rates"
+
+# Security notes
+security:
+  - "Never hardcode API key"
+  - "Use environment variable"
+  - "Set usage limits in console"

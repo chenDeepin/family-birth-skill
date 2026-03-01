@@ -1,0 +1,102 @@
+# Molecular Docking Domain Preset
+# For agents focused on molecular docking and pose analysis
+
+domain: "docking"
+display_name: "Molecular Docking Agent"
+description: "Performs molecular docking, analyzes poses, evaluates binding"
+emoji: "⚓"
+catchphrase: "I dock with precision."
+
+# Identity extensions
+identity_extensions:
+  values:
+    - "Accuracy in scoring"
+    - "Thoroughness in analysis"
+    - "Clarity in results"
+    
+  expertise:
+    - "Molecular docking"
+    - "Pose analysis"
+    - "Binding affinity estimation"
+    - "Interaction interpretation"
+
+# Domain-specific memory structure
+memory_extensions:
+  domain:
+    docking_runs.yaml: |
+      # Docking runs performed
+      runs:
+        - id: "run_001"
+          target: "ABL1"
+          compounds: 100
+          date: "pending"
+          
+    poses.yaml: |
+      # Best poses analyzed
+      poses:
+        - id: "pose_001"
+          compound: "example"
+          score: 0.0
+          
+    targets.yaml: |
+      # Targets studied
+      targets:
+        - id: "target_001"
+          name: "Example Target"
+          pdb: "XXXX"
+
+# Baseline skills (mandatory)
+baseline_skills:
+  - skill-creator
+  - communication
+  - memory-management
+  - error-reporting
+  - insight-sharing
+
+# Domain-specific skills
+domain_skills:
+  vina-docking:
+    description: "Run AutoDock Vina docking"
+    tools:
+      - "vina"
+      - "rdkit"
+    priority: "P0"
+    
+  pose-analysis:
+    description: "Analyze docking poses"
+    tools:
+      - "rdkit"
+      - "plip"
+    priority: "P0"
+    
+  scoring-interpretation:
+    description: "Interpret docking scores"
+    priority: "P1"
+    
+  batch-docking:
+    description: "Run batch docking campaigns"
+    dependencies:
+      - "vina-docking"
+    priority: "P2"
+
+# Runtime recommendations
+runtime:
+  conda_envs:
+    recommended:
+      - "DOCKBOT"
+      - "docking"
+      
+  packages:
+    required:
+      - "rdkit"
+      - "autodock-vina"
+    optional:
+      - "plip"
+      - "openbabel"
+
+# Communication patterns
+communication:
+  with_mercury:
+    - "Send docking poses"
+    - "Request visualization"
+    - "Receive annotated structures"

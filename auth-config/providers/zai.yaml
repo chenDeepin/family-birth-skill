@@ -1,0 +1,68 @@
+# Zhipu AI Provider Configuration
+# For GLM models (Chinese AI provider)
+
+provider: "zai"
+display_name: "Zhipu AI"
+description: "Chinese AI provider with GLM models (GLM-4, GLM-5)"
+
+# Configuration template for nanobot
+config_template:
+  providers:
+    zai:
+      apiKey: "${CHILD_NAME}_API_KEY"
+      baseUrl: "https://open.bigmodel.cn/api/paas/v4"
+  
+  agents:
+    defaults:
+      model: "glm-4-plus"
+      provider: "zai"
+
+# Environment variable setup
+env_vars:
+  primary:
+    name: "${CHILD_NAME}_API_KEY"
+    description: "Zhipu AI API key"
+    required: true
+    how_to_get: |
+      1. Visit https://open.bigmodel.cn
+      2. Register/login to your account
+      3. Go to API Keys section
+      4. Create or copy your API key
+      
+# Available models
+models:
+  glm-4-plus:
+    description: "GLM-4 Plus - Best for most tasks"
+    context: "128K"
+    recommended: true
+    
+  glm-4-flash:
+    description: "GLM-4 Flash - Fast and efficient"
+    context: "128K"
+    
+  glm-5:
+    description: "GLM-5 - Latest model"
+    context: "Variable"
+    note: "Check current availability"
+
+default_model: "glm-4-plus"
+
+# OAuth support
+oauth:
+  supported: false
+  
+# Pricing (approximate, check console for current rates)
+pricing:
+  glm-4-plus:
+    input: "0.05 RMB/1K tokens"
+    output: "0.05 RMB/1K tokens"
+  glm-4-flash:
+    input: "0.001 RMB/1K tokens"
+    output: "0.001 RMB/1K tokens"
+
+# Security notes
+security:
+  - "Never hardcode API key in files"
+  - "Use environment variable"
+  - "Key format: usually starts with specific prefix"
+  - "Regenerate key if compromised"
