@@ -33,6 +33,37 @@ python birth.py analyst data-analysis openrouter --dry-run
 
 ---
 
+## After Birth
+
+**Important:** Replace `{CHILD_NAME}` with your actual child name (uppercase for env var)
+
+1. **Set the API key:**
+   ```bash
+   export {CHILD_NAME}_API_KEY='your-api-key-here'
+   ```
+   
+   Example for child "mercury":
+   ```bash
+   export MERCURY_API_KEY='your-zai-api-key-here'
+   ```
+
+2. **Activate environment:**
+   ```bash
+   conda activate YOUR_ENV_NAME  # or source venv
+   ```
+
+3. **Install nanobot (if needed):**
+   ```bash
+   pip install nanobot-ai
+   ```
+
+4. **Start child:**
+   ```bash
+   nanobot agent
+   ```
+
+---
+
 ## Features
 
 ### 🏗️ Standardized Architecture
@@ -124,27 +155,18 @@ python birth.py analyst data-analysis openrouter --dry-run
 
 ---
 
-## After Birth
+## Environment Variables
 
-1. **Set API key:**
-   ```bash
-   export MERCURY_API_KEY="your-key-here"
-   ```
+After birth, set the API key using this naming convention:
 
-2. **Activate environment:**
-   ```bash
-   conda activate PYMOLCODE  # or source venv
-   ```
+```bash
+export {CHILD_NAME}_API_KEY="your-key-here"
+```
 
-3. **Install nanobot (if needed):**
-   ```bash
-   pip install nanobot-ai
-   ```
-
-4. **Start child:**
-   ```bash
-   nanobot agent
-   ```
+**Examples:**
+- Child "mercury" → `export MERCURY_API_KEY="..."`
+- Child "dockbot" → `export DOCKBOT_API_KEY="..."`
+- Child "analyst" → `export ANALYST_API_KEY="..."`
 
 ---
 
@@ -239,28 +261,9 @@ env_vars:
 
 ---
 
-## Contributing
-
-Contributions welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Add domain presets or provider configs
-4. Submit a pull request
-
----
-
 ## License
 
 MIT License - See LICENSE file
-
----
-
-## Related Projects
-
-- [OpenClaw](https://github.com/openclaw/openclaw) - Parent framework
-- [Nanobot](https://github.com/HKUDS/nanobot) - Lightweight agent runtime
-- [Zeroclaw](https://github.com/zeroclaw-labs/zeroclaw) - Rust alternative
 
 ---
 

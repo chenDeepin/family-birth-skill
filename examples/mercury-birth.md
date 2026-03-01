@@ -18,8 +18,8 @@ python birth.py mercury chemistry zai --conda-env PYMOLCODE
 ============================================================
 
 ℹ️  Checking prerequisites...
-✅ Python 3.11.11
-✅ Disk space: 156.42GB free
+✅ Python 3.10.12
+✅ Disk space: 55.41GB free
 
 ℹ️  Domain: Chemistry Workflow Agent
 ℹ️  Provider: Zhipu AI
@@ -29,25 +29,14 @@ python birth.py mercury chemistry zai --conda-env PYMOLCODE
 ✅ Created SOUL.md
 ✅ Created USER.md
 ✅ Created AGENTS.md
-✅ Created memory/short-term.yaml
-✅ Created memory/long-term.yaml
-✅ Created memory/now.yaml
-✅ Created memory/selfreview.yaml
-✅ Created config/runtime.yaml
-✅ Created config/.env
-✅ Created config/nanobot.json
-✅ Registered in family-manifest.yaml
-✅ Created FAMILY_MANIFESTO.md
-✅ Created HEARTBEAT.md
-✅ Created family-insights.yaml
-✅ Created family-errors.yaml
+[...]
 
 ============================================================
 🎉 Birth Complete! Next Steps
 ============================================================
 
 1️⃣  Set the API key:
-    export MERCURY_API_KEY='your-api-key-here'
+    export {CHILD_NAME}_API_KEY='your-api-key-here'
 
 2️⃣  Activate the conda environment:
     conda activate PYMOLCODE
@@ -58,8 +47,8 @@ python birth.py mercury chemistry zai --conda-env PYMOLCODE
 4️⃣  Start the child agent:
     nanobot agent
 
-📁 Child workspace: ~/.hephaestusfamily/mercury/
-🔑 API key env var: MERCURY_API_KEY
+📁 Child workspace: ~/.hephaestusfamily/{child-name}/
+🔑 API key env var: {CHILD_NAME}_API_KEY
 
 ✨ The child will introduce themselves when started!
 ```
@@ -67,6 +56,8 @@ python birth.py mercury chemistry zai --conda-env PYMOLCODE
 ---
 
 ## Step 2: Provide API Key
+
+**Important:** Replace `{CHILD_NAME}` with your actual child name (e.g., `MERCURY`)
 
 ```bash
 # Option A: Manual export (temporary)
@@ -79,7 +70,12 @@ source ~/.bashrc
 # Option C: Use setup script
 cd ~/.hephaestusfamily/mercury/config
 ./setup-env.sh mercury zai
+# Then provide your key when prompted
 ```
+
+**Note:** The environment variable name format is `{CHILD_NAME}_API_KEY` in uppercase.
+- For child "mercury" → `MERCURY_API_KEY`
+- For child "dockbot" → `DOCKBOT_API_KEY`
 
 ---
 
@@ -97,20 +93,48 @@ pip install nanobot-ai
 
 ## Step 4: Configure Nanobot
 
-Merge Mercury's config with nanobot's config:
+Merge child's config with nanobot's config:
 
 ```bash
 # Option A: Direct edit
 nano ~/.nanobot/config.json
-# Add content from ~/.hephaestusfamily/mercury/config/nanobot.json
+# Add content from ~/.hephaestusfamily/{child-name}/config/nanobot.json
 
 # Option B: Replace (if fresh install)
-cp ~/.hephaestusfamily/mercury/config/nanobot.json ~/.nanobot/config.json
+cp ~/.hephaestusfamily/{child-name}/config/nanobot.json ~/.nanobot/config.json
+```
+
+**For ZAI provider:**
+```json
+{
+  "providers": {
+    "zhipu": {
+      "apiKey": "${CHILD_NAME}_API_KEY",
+      "apiBase": "https://open.bigmodel.cn/api/paas/v4"
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": "glm-4-plus",
+      "provider": "zhipu"
+    }
+  }
+}
 ```
 
 ---
 
-## Step 5: Start Mercury
+## Step 5: Copy Child's Identity to Nanobot Workspace
+
+```bash
+cp ~/.hephaestusfamily/{child-name}/SOUL.md ~/.nanobot/workspace/SOUL.md
+cp ~/.hephaestusfamily/{child-name}/USER.md ~/.nanobot/workspace/USER.md
+cp ~/.hephaestusfamily/{child-name}/AGENTS.md ~/.nanobot/workspace/AGENTS.md
+```
+
+---
+
+## Step 6: Start Child Agent
 
 ```bash
 conda activate PYMOLCODE
@@ -128,7 +152,7 @@ How can I help you today, C?
 
 ---
 
-## Step 6: Verify Mercury
+## Step 7: Verify Child
 
 Send a test message:
 ```
@@ -149,9 +173,9 @@ Should I show specific interactions or prepare a publication figure?
 
 ---
 
-## Step 7: Family Integration
+## Step 8: Family Integration
 
-Mercury is now:
+Child is now:
 - ✅ Registered in `~/.hephaestusfamily/family-manifest.yaml`
 - ✅ Connected to family insights system
 - ✅ Connected to family errors system
@@ -169,47 +193,53 @@ Mercury is now:
 ├── family-errors.yaml
 ├── family-manifest.yaml
 │
-└── mercury/
-    ├── SOUL.md               # Identity and values
-    ├── USER.md               # Who they serve
-    ├── AGENTS.md             # Operating principles
+└── {child-name}/               # e.g., mercury/
+    ├── SOUL.md                 # Identity and values
+    ├── USER.md                 # Who they serve
+    ├── AGENTS.md               # Operating principles
     │
     ├── memory/
-    │   ├── short-term.yaml   # Recent movements
-    │   ├── long-term.yaml    # Persistent knowledge
-    │   ├── now.yaml          # Active tasks
-    │   ├── selfreview.yaml   # Mistakes & lessons
+    │   ├── short-term.yaml     # Recent movements
+    │   ├── long-term.yaml      # Persistent knowledge
+    │   ├── now.yaml            # Active tasks
+    │   ├── selfreview.yaml     # Mistakes & lessons
     │   │
-    │   ├── domain/           # Chemistry-specific
+    │   ├── domain/             # Domain-specific
     │   │   ├── compounds.yaml
     │   │   ├── proteins.yaml
     │   │   ├── workflows.yaml
     │   │   └── lessons.yaml
     │   │
-    │   └── index/            # Fast lookup
-    │       ├── l0-abstracts.yaml
-    │       ├── semantic.yaml
-    │       └── tags.yaml
+    │   └── index/              # Fast lookup
     │
     ├── skills/
-    │   ├── baseline/         # Mandatory skills
-    │   └── domain/           # Chemistry skills
+    │   ├── baseline/           # Shared skills (via shared/skills/)
+    │   └── domain/             # Domain-specific skills
     │
     └── config/
-        ├── runtime.yaml      # Runtime config
-        ├── .env              # Environment vars
-        └── nanobot.json      # Nanobot config
+        ├── runtime.yaml        # Runtime config
+        ├── .env                # Environment vars
+        └── nanobot.json        # Nanobot config
 ```
 
 ---
 
 ## Next Steps
 
-1. **Teach Mercury skills** - Add chemistry-specific capabilities
+1. **Teach skills** - Add domain-specific capabilities
 2. **Monitor growth** - Watch memory/domain/lessons.yaml for insights
-3. **Family sync** - Hephaestus checks Mercury during heartbeat
-4. **Evolve** - Mercury will grow with experience
+3. **Family sync** - Parent checks child during heartbeat
+4. **Evolve** - Child will grow with experience
 
 ---
 
-*Mercury Prime - First child of Hephaestus Family* 🔮
+## Template Variables
+
+When using this example, replace:
+- `{CHILD_NAME}` → Your child's name (e.g., `mercury`, `dockbot`)
+- `{CHILD_NAME}` (uppercase) → Environment variable (e.g., `MERCURY_API_KEY`)
+- `{provider}` → Your API provider (e.g., `zai`, `openrouter`)
+
+---
+
+*Example completed 2026-03-01*
